@@ -4,6 +4,7 @@
 	<property file="${basedir}/conf/local/build.properties" />
 	
 	<target name="setup.folders">
+		<mkdir dir="${project.dist}"/>
 		<mkdir dir="${project.compiled.ejb}"/>
 		<mkdir dir="${project.compiled.client}"/>
 		<mkdir dir="${project.compiled.web}"/>
