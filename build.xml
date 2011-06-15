@@ -1,0 +1,82 @@
+<project name="UNI" basedir=".">
+
+	<property environment="env" />
+	<property file="${basedir}/conf/local/build.properties" />
+	
+	<target name="setup.folders">
+		<mkdir dir="${project.compiled.ejb}"/>
+		<mkdir dir="${project.compiled.client}"/>
+		<mkdir dir="${project.compiled.web}"/>
+		<mkdir dir="${project.compiled.test}"/>
+	</target>
+	<target name="setup.ds">
+		<copy file="${project.conf}/${project.datasource}" todir="${server.deploy}" />
+	</target>
+	<target name="clean">
+		<delete includeemptydirs="true" >
+			<fileset dir="${project.compiled.ejb}" includes="**/*"/>
+			<fileset dir="${project.compiled.client}" includes="**/*"/>
+			<fileset dir="${project.compiled.web}" includes="**/*"/>
+			<fileset dir="${project.compiled.test}" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<path id="base.classpath">
+		<fileset dir="${server.lib.common}">
+			<include name="ejb3-persistence.jar"/>
+			<include name="jboss-javaee.jar"/>
+			<include name="servlet-api.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="compile" depends="clean">
+		<javac  srcdir="${project.src.client}" destdir="${project.compiled.client}" classpathref="base.classpath"/>
+		<javac  srcdir="${project.src.ejb}" destdir="${project.compiled.ejb}" classpathref="base.classpath">
+			<classpath location="${project.compiled.client}"/>
+		</javac>
+		<javac  srcdir="${project.src.web}" destdir="${project.compiled.web}" classpathref="base.classpath">
+			<classpath location="${project.compiled.client}"/>
+			<classpath location="${project.compiled.ejb}"/>
+		</javac>
+		<javac  srcdir="${project.src.test}" destdir="${project.compiled.test}" classpathref="base.classpath">
+			<classpath location="${project.compiled.client}"/>
+		</javac>
+	</target>
+
+	<target name="jar-client">
+		<jar destfile="${project.dist}/${project.name.client}" basedir="${project.compiled.client}">
+		</jar>
+	</target>
+
+	<target name="jar-ejb">
+		<jar destfile="${project.dist}/${project.name.ejb}" basedir="${project.compiled.ejb}">
+			<metainf dir="${project.conf}">
+				<include name="ejb-jar.xml"/>
+				<include name="persistence.xml"/>
+			</metainf>
+		</jar>
+	</target>
+	
+	<target name="war-web">
+		<war destfile="${project.dist}/${project.name.war}" webxml="${project.conf}/web.xml" basedir="${project.webcontent}">
+			<classes dir="${project.compiled.web}"></classes>
+		</war>
+	</target>
+		
+	<target name="ear-app" depends="compile,jar-client,jar-ejb,war-web">
+		<ear destfile="${project.dist}/${project.name.ear}" appxml="${project.conf}/application.xml" basedir="${project.dist}">
+			<include name="${project.name.war}"/>
+			<include name="${project.name.ejb}"/>
+			<include name="${project.name.client}"/>
+		</ear>
+	</target>
+	
+	<target name="deploy" depends="undeploy,ear-app">
+		<copy file="${project.dist}/${project.name.ear}" todir="${server.deploy}" />
+	</target>
+
+	<target name="undeploy">
+		<delete file="${server.deploy}/${project.name.ear}" />
+	</target>
+	
+</project>

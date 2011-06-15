@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- See http://www.jboss.org/community/wiki/Multiple1PC for information about local-tx-datasource -->
+<!-- $Id: mysql-ds.xml 88948 2009-05-15 14:09:08Z jesper.pedersen $ -->
+<!--  Datasource config for MySQL using 3.0.9 available from:
+http://www.mysql.com/downloads/api-jdbc-stable.html
+-->
+
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>UniDS</jndi-name>
+    <connection-url>jdbc:mysql://localhost:3306/uni</connection-url>
+    <driver-class>com.mysql.jdbc.Driver</driver-class>
+    <user-name>root</user-name>
+    <password></password>
+  </local-tx-datasource>
+</datasources>
+
