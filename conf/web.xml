@@ -9,4 +9,16 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
+  <servlet>
+  	<servlet-name>CourseManager</servlet-name>
+  	<servlet-class>kz.edu.sdu.apps.uni.web.servlet.CourseManagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CourseManager</servlet-name>
+  	<url-pattern>/courses</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>
