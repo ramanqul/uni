@@ -18,6 +18,7 @@ public class CatalogEntity {
 	private Integer credits;
 	private SubjectEntity subjectEntity;
 	private FacultyEntity facultyEntity;
+	private TermEntity termEntity;
 	
 	public CatalogEntity(){}
 
@@ -61,7 +62,14 @@ public class CatalogEntity {
 	public void setFacultyEntity(FacultyEntity facultyEntity) {
 		this.facultyEntity = facultyEntity;
 	}
-	
-	
-	
+
+	@ManyToOne
+	@JoinColumn(name="term_id",referencedColumnName="term_id")
+	public TermEntity getTermEntity() {
+		return termEntity;
+	}
+
+	public void setTermEntity(TermEntity termEntity) {
+		this.termEntity = termEntity;
+	}
 }

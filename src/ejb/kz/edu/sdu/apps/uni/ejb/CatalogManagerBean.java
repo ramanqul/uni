@@ -8,9 +8,11 @@ import kz.edu.sdu.apps.uni.client.ICatalogManagerLocal;
 import kz.edu.sdu.apps.uni.client.ICatalogManagerRemote;
 import kz.edu.sdu.apps.uni.client.dto.FacultyDTO;
 import kz.edu.sdu.apps.uni.client.dto.SubjectDTO;
+import kz.edu.sdu.apps.uni.client.dto.TermDTO;
 import kz.edu.sdu.apps.uni.ejb.db.CatalogEntity;
 import kz.edu.sdu.apps.uni.ejb.db.FacultyEntity;
 import kz.edu.sdu.apps.uni.ejb.db.SubjectEntity;
+import kz.edu.sdu.apps.uni.ejb.db.TermEntity;
 
 @Stateless
 public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerRemote{
@@ -21,11 +23,9 @@ public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerR
 	
 	@Override
 	public boolean createCatalog(Integer credits, SubjectDTO subjectDTO,
-			FacultyDTO facultyDTO) {
+			FacultyDTO facultyDTO,TermDTO termDTO) {
 
 		CatalogEntity catalog=new CatalogEntity();
-		
-		
 		
 		SubjectEntity subject=new SubjectEntity(); 
 		
@@ -34,6 +34,8 @@ public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerR
 		
 		catalog.setFacultyEntity(faculty);
 		catalog.setSubjectEntity(subject);
+		
+		TermEntity term=new TermEntity();
 		
 		em.persist(catalog);
 		

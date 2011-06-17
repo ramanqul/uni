@@ -1,6 +1,5 @@
 package kz.edu.sdu.apps.uni.client.dto;
 
-import kz.edu.sdu.apps.uni.ejb.db.CourseEntity;
 
 public class SubjectDTO {
 
