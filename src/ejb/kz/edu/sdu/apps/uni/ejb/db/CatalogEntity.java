@@ -1,5 +1,6 @@
 package kz.edu.sdu.apps.uni.ejb.db;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class CatalogEntity {
 		this.credits = credits;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name="subject_id",referencedColumnName="subject_id")
 	public SubjectEntity getSubjectEntity() {
 		return subjectEntity;
