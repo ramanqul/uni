@@ -54,7 +54,7 @@ public class CatalogEntity {
 		this.subjectEntity = subjectEntity;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name="faculty_id",referencedColumnName="faculty_id")
 	public FacultyEntity getFacultyEntity() {
 		return facultyEntity;
@@ -64,7 +64,7 @@ public class CatalogEntity {
 		this.facultyEntity = facultyEntity;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name="term_id",referencedColumnName="term_id")
 	public TermEntity getTermEntity() {
 		return termEntity;
