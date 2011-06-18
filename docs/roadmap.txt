@@ -1,0 +1,7 @@
+Main Actors:
+ - Student
+ - Teacher/Instructor
+
+Main Use cases:
+ - Student select courses
+ - Teacher put student grades  
