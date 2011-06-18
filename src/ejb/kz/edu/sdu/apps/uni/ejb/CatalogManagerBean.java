@@ -18,6 +18,8 @@ import kz.edu.sdu.apps.uni.ejb.db.TermEntity;
 public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerRemote{
 
 	
+	
+	// some changes
 	@PersistenceContext(unitName="UniPU")
 	EntityManager em;
 	
