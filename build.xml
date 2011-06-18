@@ -31,15 +31,15 @@
 	</path>
 	
 	<target name="compile" depends="clean">
-		<javac  srcdir="${project.src.client}" destdir="${project.compiled.client}" classpathref="base.classpath"/>
-		<javac  srcdir="${project.src.ejb}" destdir="${project.compiled.ejb}" classpathref="base.classpath">
+		<javac debug="${project.debug}" srcdir="${project.src.client}" destdir="${project.compiled.client}" classpathref="base.classpath"/>
+		<javac debug="${project.debug}" srcdir="${project.src.ejb}" destdir="${project.compiled.ejb}" classpathref="base.classpath">
 			<classpath location="${project.compiled.client}"/>
 		</javac>
-		<javac  srcdir="${project.src.web}" destdir="${project.compiled.web}" classpathref="base.classpath">
+		<javac debug="${project.debug}" srcdir="${project.src.web}" destdir="${project.compiled.web}" classpathref="base.classpath">
 			<classpath location="${project.compiled.client}"/>
 			<classpath location="${project.compiled.ejb}"/>
 		</javac>
-		<javac  srcdir="${project.src.test}" destdir="${project.compiled.test}" classpathref="base.classpath">
+		<javac debug="${project.debug}" srcdir="${project.src.test}" destdir="${project.compiled.test}" classpathref="base.classpath">
 			<classpath location="${project.compiled.client}"/>
 		</javac>
 	</target>

@@ -20,5 +20,14 @@
   	<url-pattern>/courses</url-pattern>
   </servlet-mapping>
   
+
+  <servlet>
+  	<servlet-name>CatalogManager</servlet-name>
+  	<servlet-class>kz.edu.sdu.apps.uni.web.servlet.CatalogManagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CatalogManager</servlet-name>
+  	<url-pattern>/catalogs</url-pattern>
+  </servlet-mapping>
   
 </web-app>

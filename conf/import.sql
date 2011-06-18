@@ -17,5 +17,9 @@ insert into courses values(2,"Physics");
 /*
  * 
  * ALTER TABLE `uni`.`courses` CHANGE COLUMN `couse_id` `course_id` BIGINT(20) NOT NULL AUTO_INCREMENT;
- * 
+ *
+ * ALTER TABLE `uni`.`subjects` MODIFY COLUMN `course_id` BIGINT(20);
+ *  
  */
+
+

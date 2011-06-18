@@ -25,21 +25,49 @@ public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerR
 	public boolean createCatalog(Integer credits, SubjectDTO subjectDTO,
 			FacultyDTO facultyDTO,TermDTO termDTO) {
 
+		SubjectEntity subject=null;
+		
+		if(subjectDTO.getSubjectId()!=null) { 
+			subject=em.find(SubjectEntity.class, subjectDTO.getSubjectId());
+		} else {
+			subject=new SubjectEntity();
+			subject.setSubjectCode(subjectDTO.getSubjectCode());
+			subject.setTitle(subjectDTO.getTitle());
+			subject.setDescription(subjectDTO.getDescription());
+		}
+		
+		
+		FacultyEntity faculty=null;
+		
+		if(facultyDTO.getFacultyId()!=null) {
+			faculty=em.find(FacultyEntity.class, facultyDTO.getFacultyId());
+		} else {
+			faculty=new FacultyEntity();
+			faculty.setFacultyCode(facultyDTO.getFacultyCode());
+			faculty.setName(facultyDTO.getName());
+		}
+		
+		TermEntity term=null;
+		
+		if(termDTO.getTermId()!=null) {
+			term=em.find(TermEntity.class, termDTO.getTermId());
+		} else {
+			term=new TermEntity();
+			term.setName(termDTO.getName());
+			term.setStartDate(termDTO.getStartDate());
+			term.setEndDate(termDTO.getEndDate());
+		}
+		
+		
 		CatalogEntity catalog=new CatalogEntity();
-		
-		SubjectEntity subject=new SubjectEntity(); 
-		
-		FacultyEntity faculty=new FacultyEntity();
-		faculty.setFacultyId(facultyDTO.getFacultyId());
-		
+		catalog.setCredits(credits);
 		catalog.setFacultyEntity(faculty);
 		catalog.setSubjectEntity(subject);
-		
-		TermEntity term=new TermEntity();
+		catalog.setTermEntity(term);
 		
 		em.persist(catalog);
 		
-		return false;
+		return true;
 	}
 
 }
