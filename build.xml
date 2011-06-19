@@ -29,6 +29,10 @@
 			<include name="servlet-api.jar"/>
 		</fileset>
 	</path>
+	<path id="web.classpath">
+		<fileset dir="${project.webcontent}/lib" includes="**/*.jar">
+		</fileset>
+	</path>
 	
 	<target name="compile" depends="clean">
 		<javac debug="${project.debug}" srcdir="${project.src.client}" destdir="${project.compiled.client}" classpathref="base.classpath"/>
@@ -36,6 +40,7 @@
 			<classpath location="${project.compiled.client}"/>
 		</javac>
 		<javac debug="${project.debug}" srcdir="${project.src.web}" destdir="${project.compiled.web}" classpathref="base.classpath">
+			<classpath refid="web.classpath"></classpath>
 			<classpath location="${project.compiled.client}"/>
 			<classpath location="${project.compiled.ejb}"/>
 		</javac>
@@ -59,8 +64,12 @@
 	</target>
 	
 	<target name="war-web">
-		<war destfile="${project.dist}/${project.name.war}" webxml="${project.conf}/web.xml" basedir="${project.webcontent}">
+		<war destfile="${project.dist}/${project.name.war}" webxml="${project.conf}/web.xml" >
+			<fileset dir="${project.webcontent}">
+				<exclude name="lib/**"/>
+			</fileset>
 			<classes dir="${project.compiled.web}"></classes>
+			<lib dir="${project.webcontent}/lib" includes="**/*.jar"></lib>
 		</war>
 	</target>
 		

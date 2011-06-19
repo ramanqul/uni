@@ -12,9 +12,12 @@
 		</div>
 		<div>
 			<input type="submit" value="Find">
+			<input type="reset" value="Reset"/>
 		</div>
 	</form>
-
+	<div>
+		<input type="button" value="Create Course" />
+	</div>
 	<table>
 		<tr>
 			<th>Course ID</th>
