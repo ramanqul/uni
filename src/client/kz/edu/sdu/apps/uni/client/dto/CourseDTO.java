@@ -22,6 +22,12 @@ public class CourseDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "CourseDTO [courseId=" + courseId + ", name=" + name + "]";
+	}
+
 	
 	
 	

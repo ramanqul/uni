@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 import kz.edu.sdu.apps.uni.client.ICourseManagerLocal;
@@ -56,15 +57,43 @@ public class CourseManagerServlet extends HttpServlet{
 		req.getRequestDispatcher("/courses/courseManager.jsp").forward(req, resp);*/
 	}
 
+	
+	// for create,update,delete operations
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		PrintWriter out=resp.getWriter();
+		
 		String path=req.getRequestURI();
+		XStream xstream=new XStream(new JettisonMappedXmlDriver());
+		String strJson=req.getParameter("course");
+		CourseDTO course=new CourseDTO();
+		xstream.alias("course", CourseDTO.class);
+		xstream.fromXML(strJson, course);
+		
+		
+		boolean result=courseManager.createCourse(course.getName());
+		
+		if(result) {
+			out.print("{\"result\":\"ok\"}");
+		} else {
+			out.print("{\"result\":\"failed\"}");
+		}
+		
+		
+//		XStream xstream=new XStream(new JsonHierarchicalStreamDriver());
+//		
+//		PrintWriter out=resp.getWriter();
+//		CourseDTO courses[]=courseManager.getCourses(null).toArray(new CourseDTO[]{}); 
+//		
+//		xstream.alias("courses", CourseDTO[].class);
+//		xstream.alias("course", CourseDTO.class);
+//		
+		
 		
 		if(path.contains("new")) {
-			//save new
-			 
+			
 		} else if(path.contains("del")) {
 			// delete one
 			
