@@ -11,6 +11,16 @@ create table catalogs(catalog_id bigint not null auto_increment primary key, cre
 create table faculties(faculty_id bigint not null auto_increment primary key, name varchar(128) not null,faculty_code varchar(50) not null);
 create table terms(term_id bigint not null auto_increment primary key, name varchar(128) not null,start_date datetime,end_date datetime);
 
+create table classes(class_id bigint not null auto_increment primary key, subject_id bigint not null, faculty_id bigint not null,term_id bigint not null,seat_number int not null, credits int not null,comments varchar(256));
+create table class_enroll(class_enroll_id bigint not null auto_increment primary key, 
+	class_id bigint not null, 
+	student_id bigint not null,
+	group_name varchar(100) not null, 
+	apply_date datetime not null,
+	enroll_date datetime not null,
+	enroll_status varchar(50) not null);
+
+
 insert into courses values(1,"Math");
 insert into courses values(2,"Physics");
 
