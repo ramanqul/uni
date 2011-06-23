@@ -33,7 +33,11 @@
 		<fileset dir="${project.webcontent}/lib" includes="**/*.jar">
 		</fileset>
 	</path>
-	
+	<path id="test.classpath">
+		<fileset dir="lib">
+			<include name="junit-4.8.jar"/>
+		</fileset>
+	</path>
 	<target name="compile" depends="clean">
 		<javac debug="${project.debug}" srcdir="${project.src.client}" destdir="${project.compiled.client}" classpathref="base.classpath"/>
 		<javac debug="${project.debug}" srcdir="${project.src.ejb}" destdir="${project.compiled.ejb}" classpathref="base.classpath">
@@ -46,6 +50,7 @@
 		</javac>
 		<javac debug="${project.debug}" srcdir="${project.src.test}" destdir="${project.compiled.test}" classpathref="base.classpath">
 			<classpath location="${project.compiled.client}"/>
+			<classpath refid="test.classpath" />
 		</javac>
 	</target>
 

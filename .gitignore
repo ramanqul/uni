@@ -1,4 +1,4 @@
 bin
-conf/local
+conf/local/build.properties
 compiled
 dist

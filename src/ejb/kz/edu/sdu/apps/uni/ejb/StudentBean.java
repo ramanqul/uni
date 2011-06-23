@@ -2,7 +2,6 @@ package kz.edu.sdu.apps.uni.ejb;
 
 import java.util.Date;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,21 +33,22 @@ public class StudentBean implements IStudentBeanLocal,IStudentBeanRemote{
 		ClassEntity clazz=em.find(ClassEntity.class, classId);
 		if(clazz==null) throw new ClassNotExistsException(String.format("Class with classId(%s) does not exists",classId));
 		
-		Integer count=(Integer) em.createQuery("Select count(ce) from ClassEnrollEntity ce Where ce.studentEntity.studentId=:studentId and ce.classEntity.classId=:classId and ce.enrollStatus!=:waitingStatus")
+		long count=(Long) em.createQuery("Select count(ce) from ClassEnrollEntity ce Where ce.studentEntity.studentId=:studentId and ce.classEntity.classId=:classId and ce.enrollStatus in(:waitingStatus,:enrolledStatus)")
 			.setParameter("studentId", studentId)
 			.setParameter("classId", classId)
 			.setParameter("waitingStatus", ClassEnrollStatus.WAITING)
+			.setParameter("enrolledStatus", ClassEnrollStatus.ENROLLED)
 			.getSingleResult();
 				
 		
-		if(count!=null || count.intValue()==1) 
+		if(count>0L) 
 				throw new StudentAlreadyEnrolledClassException(String.format("Student(%s) has already taken Class(%s)",studentId,classId));
 
 		return false;
 	}
 
 	@Override
-	public boolean studentWantsToEnrollClass(Long studentId, Long classId) {
+	public boolean studentWantsToEnrollClass(Long studentId, Long classId,String groupName) {
 		try {
 			if(!isStudentEnrolledToClass(studentId, classId)) {
 				ClassEnrollEntity ce=new ClassEnrollEntity();
@@ -56,7 +56,7 @@ public class StudentBean implements IStudentBeanLocal,IStudentBeanRemote{
 				ce.setClassEntity(em.find(ClassEntity.class,classId));
 				ce.setApplyDate(new Date());
 				ce.setEnrollStatus(ClassEnrollStatus.WAITING);
-				ce.setGroupName("test");
+				ce.setGroupName(groupName);
 				em.persist(ce);
 			}
 		} catch (Exception e) {

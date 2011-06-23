@@ -1,21 +1,17 @@
 package kz.edu.sdu.apps.uni.test;
 
-import java.util.Properties;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import kz.edu.sdu.apps.uni.client.ICourseManagerRemote;
+
 public class CourseManagerTest {
 
 	public static void main(String[] args) throws NamingException {
-		Properties props=new Properties();
-		
-		
-		Context ctx=new InitialContext(props);
-		
-		
-		
+		Context ctx=new InitialContext();
+		ICourseManagerRemote courseManager=(ICourseManagerRemote) ctx.lookup("uni/CourseManagerBean/remote");
+		System.out.println(courseManager.createCourse("Programming"));
 	}
 	
 }

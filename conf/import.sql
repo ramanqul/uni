@@ -17,12 +17,19 @@ create table class_enroll(class_enroll_id bigint not null auto_increment primary
 	student_id bigint not null,
 	group_name varchar(100) not null, 
 	apply_date datetime not null,
-	enroll_date datetime not null,
+	enroll_date datetime,
 	enroll_status varchar(50) not null);
 
 
 insert into courses values(1,"Math");
 insert into courses values(2,"Physics");
+insert into courses values(6,"Programming");
+
+insert into faculties values(1,"Faculty Of Engineering","EN");
+insert into terms values(1,"Fall 2010/2011",null,null);
+insert into students values(1,"sid123","student1","StudentF","StudentL");
+insert into subjects values(1,"CS302","Software Engineering","Some Description",6);
+insert into classes values(1,1,1,1,5,4,"Some Comment");
 
 /*
  * 
