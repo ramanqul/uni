@@ -2,12 +2,16 @@ package kz.edu.sdu.apps.uni.ejb.db;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import kz.edu.sdu.apps.uni.client.dto.SubjectDTO;
 
 
 @Entity
@@ -60,7 +64,7 @@ public class SubjectEntity {
 		this.description = description;
 	}
 
-	@ManyToOne()
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="course_id",referencedColumnName="course_id")
 	public CourseEntity getCourseEntity() {
 		return courseEntity;
@@ -70,5 +74,17 @@ public class SubjectEntity {
 		this.courseEntity = courseEntity;
 	}
 	
-	
+	@Transient
+	public SubjectDTO toSubjectDTO()	{
+		SubjectDTO subject=new SubjectDTO();
+		subject.setSubjectId(getSubjectId());
+		subject.setDescription(getDescription());
+		subject.setTitle(getTitle());
+		subject.setSubjectCode(getSubjectCode());
+		
+		if(getCourseEntity()!=null)
+			subject.setCourseDTO(getCourseEntity().toCourseDTO());
+		
+		return subject;
+	}
 }

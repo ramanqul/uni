@@ -20,6 +20,9 @@ create table class_enroll(class_enroll_id bigint not null auto_increment primary
 	enroll_date datetime,
 	enroll_status varchar(50) not null);
 
+create table class_group(class_group_id bigint not null auto_increment primary key, class_id bigint not null, group_name varchar(50) not null,seat_number integer not null);
+
+create table instructors(instructor_id bigint not null auto_increment primary key, username varchar(50) not null, firstname varchar(50),lastname varchar(50));
 
 insert into courses values(1,"Math");
 insert into courses values(2,"Physics");

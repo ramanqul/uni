@@ -1,11 +1,15 @@
-package kz.edu.sdu.apps.uni.client;
+package kz.edu.sdu.apps.uni.client.dto;
 
-import kz.edu.sdu.apps.uni.client.dto.FacultyDTO;
-import kz.edu.sdu.apps.uni.client.dto.SubjectDTO;
-import kz.edu.sdu.apps.uni.client.dto.TermDTO;
+import java.io.Serializable;
 
-public class ClassDTO {
 
+public class ClassDTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4879789385513350082L;
+	
 	private Long classId;
 	private SubjectDTO subject;
 	private TermDTO term;
@@ -54,6 +58,13 @@ public class ClassDTO {
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	@Override
+	public String toString() {
+		return "ClassDTO [classId=" + classId + ", subject=" + subject
+				+ ", term=" + term + ", faculty=" + faculty + ", seatNumber="
+				+ seatNumber + ", credits=" + credits + ", comments="
+				+ comments + "]";
 	}
 	
 	

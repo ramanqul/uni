@@ -1,6 +1,13 @@
-package kz.edu.sdu.apps.uni.client;
+package kz.edu.sdu.apps.uni.client.dto;
 
-public class ClassSearchFilterDTO {
+import java.io.Serializable;
+
+public class ClassSearchFilterDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3758146746251947956L;
+	
 	private Long termId;
 	private Long facultyId;
 	private Long subjectId;

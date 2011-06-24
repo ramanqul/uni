@@ -1,15 +1,16 @@
 package kz.edu.sdu.apps.uni.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import kz.edu.sdu.apps.uni.client.ClassDTO;
-import kz.edu.sdu.apps.uni.client.ClassSearchFilterDTO;
 import kz.edu.sdu.apps.uni.client.IClassEnrollLocal;
 import kz.edu.sdu.apps.uni.client.IClassEnrollRemote;
+import kz.edu.sdu.apps.uni.client.dto.ClassDTO;
+import kz.edu.sdu.apps.uni.client.dto.ClassSearchFilterDTO;
 import kz.edu.sdu.apps.uni.ejb.db.ClassEntity;
 
 @Stateless
@@ -20,31 +21,37 @@ public class ClassEnrollBean implements IClassEnrollLocal,IClassEnrollRemote{
 	
 	@Override
 	public List<ClassDTO> search(ClassSearchFilterDTO filter,int page,int size) {
-		String where="";
+		String query="Select clazz From ClassEntity clazz left join fetch clazz.termEntity left join fetch clazz.subjectEntity left join fetch clazz.facultyEntity";
+		String where=" where ";
 		
-		if(filter.getFacultyId()!=null) 
-			where+="class.facultyEntity.facultyId=:facultyId";
+		boolean and=false;
 		
-		if(filter.getTermId()!=null&&where.length()>1) 
-			where+=" and class.termEntity.termId=:termId";
-		else 
-			where+="class.termEntity.termId=:termId";
+		if(filter.getFacultyId()!=null) { 
+			where+=String.format("clazz.facultyEntity.facultyId=%s",filter.getFacultyId());
+			and=true;
+		}
 		
-		if(filter.getSubjectId()!=null&&where.length()>1) 
-			where+=" and class.subjectEntity.subjectId=:subjectId";
-		else 
-			where+="class.subjectEntity.subjectId=:subjectId";
+		if(filter.getTermId()!=null) { 
+			where+=(and?" and ":"")+String.format(" clazz.termEntity.termId=%s",filter.getTermId());
+			and=true;
+		}
 		
-		List<ClassEntity> classes=em.createQuery("Select class From ClassEntity class "+where)
-			.setParameter("facultyId",filter.getFacultyId())
-			.setParameter("termId",filter.getTermId())
-			.setParameter("subjectId",filter.getSubjectId())
-			.getResultList();
+		if(filter.getSubjectId()!=null) { 
+			where+=(and?" and ":"")+String.format(" clazz.subjectEntity.subjectId=%s",filter.getSubjectId());
+			and=true;
+		}
 		
+		query+=where;
+		System.out.println(query);
 		
-		System.out.println(classes);
+		List<ClassEntity> classes=em.createQuery(query).getResultList();
+		List<ClassDTO> classDtoList=new ArrayList<ClassDTO>();
 		
-		return null;
+		for(ClassEntity c:classes) {
+			classDtoList.add(c.toClassDTO());
+		}
+		
+		return classDtoList;
 	}
 
 	

@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import kz.edu.sdu.apps.uni.client.dto.FacultyDTO;
 
 @Entity
 @Table(name="faculties")
@@ -46,6 +49,13 @@ public class FacultyEntity {
 		this.facultyCode = facultyCode;
 	}
 	
-	
+	@Transient
+	public FacultyDTO toFacultyDTO()	{
+		FacultyDTO faculty=new FacultyDTO();
+		faculty.setFacultyId(getFacultyId());
+		faculty.setName(getName());
+		faculty.setFacultyCode(getFacultyCode());
+		return faculty;
+	}
 	
 }

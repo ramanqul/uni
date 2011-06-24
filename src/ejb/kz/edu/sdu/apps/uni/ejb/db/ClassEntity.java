@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import kz.edu.sdu.apps.uni.client.dto.ClassDTO;
 
 
 @Entity
@@ -93,7 +96,23 @@ public class ClassEntity {
 		this.comments = comments;
 	}
 	
-	
+	@Transient
+	public ClassDTO toClassDTO()	{
+		ClassDTO clazz=new ClassDTO();
+		clazz.setClassId(getClassId());
+		clazz.setComments(getComments());
+		clazz.setCredits(getCredits());
+		clazz.setSeatNumber(getSeatNumber());
+		
+		if(getFacultyEntity()!=null)
+			clazz.setFaculty(getFacultyEntity().toFacultyDTO());
+		if(getTermEntity()!=null) 
+			clazz.setTerm(getTermEntity().toTermDTO());
+		if(getSubjectEntity()!=null) 
+			clazz.setSubject(getSubjectEntity().toSubjectDTO());
+		
+		return clazz;
+	}
 	
 	
 }

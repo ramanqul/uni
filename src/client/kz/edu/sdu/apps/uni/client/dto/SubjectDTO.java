@@ -1,8 +1,16 @@
 package kz.edu.sdu.apps.uni.client.dto;
 
+import java.io.Serializable;
 
-public class SubjectDTO {
 
+public class SubjectDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6416798925929771380L;
+	
+	
 	private Long subjectId;
 	private String subjectCode;
 	private String title;

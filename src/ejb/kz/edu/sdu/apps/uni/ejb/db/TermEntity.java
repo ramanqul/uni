@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import kz.edu.sdu.apps.uni.client.dto.TermDTO;
 
 @Entity
 @Table(name="terms")
@@ -60,5 +63,14 @@ public class TermEntity {
 	}
 	
 	
+	@Transient
+	public TermDTO toTermDTO()	{
+		TermDTO term=new TermDTO();
+		term.setTermId(getTermId());
+		term.setName(getName());
+		term.setStartDate(getStartDate());
+		term.setEndDate(getEndDate());
+		return term;
+	}
 	
 }

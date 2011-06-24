@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import kz.edu.sdu.apps.uni.client.dto.CourseDTO;
+
 
 @Entity
 @Table(name="courses")
@@ -31,6 +33,13 @@ public class CourseEntity {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public CourseDTO toCourseDTO() {
+		CourseDTO course=new CourseDTO();
+		course.setCourseId(getCourseId());
+		course.setName(getName());
+		return course;
 	}
 	
 	

@@ -1,9 +1,16 @@
 package kz.edu.sdu.apps.uni.client.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TermDTO {
+public class TermDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8821127227200701814L;
+	
+	
 	private Long termId;
 	private String name;
 	private Date startDate;

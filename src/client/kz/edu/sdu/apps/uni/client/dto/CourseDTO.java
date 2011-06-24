@@ -1,7 +1,14 @@
 package kz.edu.sdu.apps.uni.client.dto;
 
-public class CourseDTO {
+import java.io.Serializable;
 
+public class CourseDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6748578199490359474L;
+	
 	protected Long courseId;
 	protected String name;
 	
