@@ -52,17 +52,32 @@ public class ClassEnrollServlet extends HttpServlet {
 		Long termId=null;
 		
 		if(req.getParameter("termId")!=null)
-			termId=Long.parseLong(req.getParameter("termId"));
+			try {
+				termId=Long.parseLong(req.getParameter("termId"));	
+			} catch (NumberFormatException e) {
+				// termId=null;
+			}
+			
 		
 		Long subjectId=null;
 		if(req.getParameter("subjectId")!=null)
-			subjectId=Long.parseLong(req.getParameter("subjectId"));
+			try {
+				subjectId=Long.parseLong(req.getParameter("subjectId"));	
+			} catch (NumberFormatException e) {
+				// subjectId=null;
+			}
+			
 
 		
 		Long facultyId=null;
 		
 		if(req.getParameter("facultyId")!=null)
-			facultyId=Long.parseLong(req.getParameter("facultyId"));
+			try {
+				facultyId=Long.parseLong(req.getParameter("facultyId"));	
+			} catch (NumberFormatException e) {
+				// facultyId=null;
+			}
+			
 		
 		ClassSearchFilterDTO filter = new ClassSearchFilterDTO();
 		filter.setFacultyId(facultyId);

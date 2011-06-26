@@ -24,21 +24,26 @@ public class ClassEnrollBean implements IClassEnrollLocal,IClassEnrollRemote{
 		String where=" where ";
 		
 		boolean and=false;
-		
+		boolean isWhere=false;
 		if(filter.getFacultyId()!=null) { 
 			where+=String.format("clazz.facultyEntity.facultyId=%s",filter.getFacultyId());
 			and=true;
+			isWhere=true;
 		}
 		
 		if(filter.getTermId()!=null) { 
 			where+=(and?" and ":"")+String.format(" clazz.termEntity.termId=%s",filter.getTermId());
 			and=true;
+			isWhere=true;
 		}
 		
 		if(filter.getSubjectId()!=null) { 
 			where+=(and?" and ":"")+String.format(" clazz.subjectEntity.subjectId=%s",filter.getSubjectId());
 			and=true;
+			isWhere=true;
 		}
+		
+		if(!isWhere) return null;
 		
 		query+=where;
 		System.out.println(query);

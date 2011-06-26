@@ -29,74 +29,83 @@
 <html>
 	<head>
 		<title>Class Search</title>
+		<link href="http://localhost:8080/uni/static/css/base.css" type=text/css rel="stylesheet">
 	</head>
 	<body>
 		<form method="post" action="/uni/class/search">
-			<dl>
-				<dt>
-					<span>Term:</span>
+			<div class="row">
+				<div class="title">
+					Term:
+				</div>
+				<div class="field">
 					<select name="termId">
-						<option >None</option>											
+						<option value="null">None</option>											
 						<% for(TermDTO term:terms) { %>
 							<option value="<%=term.getTermId() %>" <% if(selectedTermId==term.getTermId()) out.print("selected"); %> >
 								<%=term.getName() %>
 							</option>
 						<% } %>						
 					</select>
-				</dt>
-				<dt>
-					<span>Faculty:</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="title">
+					Faculty:				
+				</div>
+				<div class="field">
 					<select name="facultyId">
-						<option >None</option>						
+						<option value="null">None</option>						
 						<% for(FacultyDTO faculty:faculties) { %>
 							<option value="<%=faculty.getFacultyId() %>" <% if(selectedFacultyId==faculty.getFacultyId()) out.print("selected"); %>>
 								<%=faculty.getName() %>
 							</option>
 						<% } %>						
 					</select>
-				</dt>
-				<dt>
-					<span>Subject:</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="title">
+					Subject:				
+				</div>
+				<div class="field">
 					<select name="subjectId">
-						<option >None</option>						
+						<option value="null">None</option>						
 						<% for(SubjectDTO subject:subjects) { %>
 							<option value="<%= subject.getSubjectId() %>" <% if(selectedSubjectId==subject.getSubjectId()) out.print("selected"); %>>
-								<%=subject.getTitle() %>
+								<%= subject.getSubjectCode()+'-'+subject.getTitle() %>
 							</option>
 						<% } %>						
 					</select>
-				</dt>
-				<dt>
-					<input type="submit" value="Search" />
-					<input type="reset" value="Reset" />
-				</dt>
-			</dl>
+				</div>
+			</div>
+			<div class="row">
+				<input type="submit" value="Search" />
+			</div>
 		</form>
 		
 		<% if(classes!=null) { %>
-			<form method="post" action="">
-			<table border="1">
+		<table border="1">
+			<tr>
+				<th width="70%">Subject</th>
+				<th>Credits</th>
+				<th>Total Seats</th>
+				<th>Status</th>		
+				<th>Action</th>											
+			</tr>
+			<% for(ClassDTO clazz:classes) { %>		
 				<tr>
-					<th><input type="checkbox"></th>
-					<th><p>Subject Code</p></th>
-					<th><p>Subject Title</p></th>
-					<th><p>Credits</p></th>
-					<th><p>Total Seats</p></th>									
+					<td>
+						<%= clazz.getSubject().getSubjectCode()+'-'+clazz.getSubject().getTitle() %>
+					</td>
+					<td><%= clazz.getCredits() %></td>
+					<td><%= clazz.getSeatNumber() %></td>
+					<td><%= clazz.getClassStatus() %></td>
+					<td>
+						<a href="apply">Apply</a>
+					</td>
 				</tr>
-				<% for(ClassDTO clazz:classes) { %>		
-					<tr>
-						<td><input type="checkbox" name="selectedClass" value="<%=clazz.getClassId() %>"/></td>
-						<td><%= clazz.getSubject().getSubjectCode() %></td>
-						<td><%= clazz.getSubject().getTitle() %></td>
-						<td><%= clazz.getCredits() %></td>
-						<td><%= clazz.getSeatNumber() %></td>
-					</tr>
-				<% } %>
-					<tr>
-						<td colspan="5"><input type="submit" value="Submit" /></td>						
-					</tr>
-			</table>		
-			</form>
+			<% } %>
+		</table>		
 		<% } %>
 	</body>
 </html>

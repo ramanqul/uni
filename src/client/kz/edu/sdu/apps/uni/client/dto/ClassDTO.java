@@ -17,6 +17,8 @@ public class ClassDTO implements Serializable {
 	private int seatNumber;
 	private int credits;
 	private String comments;
+	private ClassStatus classStatus;
+	
 	public Long getClassId() {
 		return classId;
 	}
@@ -58,6 +60,13 @@ public class ClassDTO implements Serializable {
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	
+	public ClassStatus getClassStatus() {
+		return classStatus;
+	}
+	public void setClassStatus(ClassStatus classStatus) {
+		this.classStatus = classStatus;
 	}
 	@Override
 	public String toString() {

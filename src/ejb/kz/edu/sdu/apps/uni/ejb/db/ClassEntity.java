@@ -3,6 +3,8 @@ package kz.edu.sdu.apps.uni.ejb.db;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import kz.edu.sdu.apps.uni.client.dto.ClassDTO;
+import kz.edu.sdu.apps.uni.client.dto.ClassStatus;
 
 
 @Entity
@@ -25,6 +28,7 @@ public class ClassEntity {
 	private Integer seatNumber;
 	private Integer credits;
 	private String comments;
+	private ClassStatus classStatus;
 	
 	public ClassEntity(){}
 
@@ -96,6 +100,19 @@ public class ClassEntity {
 		this.comments = comments;
 	}
 	
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="class_status")
+	public ClassStatus getClassStatus() {
+		return classStatus;
+	}
+
+
+	public void setClassStatus(ClassStatus classStatus) {
+		this.classStatus = classStatus;
+	}
+
+
 	@Transient
 	public ClassDTO toClassDTO()	{
 		ClassDTO clazz=new ClassDTO();
@@ -103,6 +120,7 @@ public class ClassEntity {
 		clazz.setComments(getComments());
 		clazz.setCredits(getCredits());
 		clazz.setSeatNumber(getSeatNumber());
+		clazz.setClassStatus(getClassStatus());
 		
 		if(getFacultyEntity()!=null)
 			clazz.setFaculty(getFacultyEntity().toFacultyDTO());

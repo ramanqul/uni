@@ -11,7 +11,15 @@ create table catalogs(catalog_id bigint not null auto_increment primary key, cre
 create table faculties(faculty_id bigint not null auto_increment primary key, name varchar(128) not null,faculty_code varchar(50) not null);
 create table terms(term_id bigint not null auto_increment primary key, name varchar(128) not null,start_date datetime,end_date datetime);
 
-create table classes(class_id bigint not null auto_increment primary key, subject_id bigint not null, faculty_id bigint not null,term_id bigint not null,seat_number int not null, credits int not null,comments varchar(256));
+create table classes(class_id bigint not null auto_increment primary key, 
+	subject_id bigint not null, 
+	faculty_id bigint not null,
+	term_id bigint not null,
+	seat_number int not null, 
+	credits int not null,
+	comments varchar(256),
+	class_status varchar(50) not null);
+	
 create table class_enroll(class_enroll_id bigint not null auto_increment primary key, 
 	class_id bigint not null, 
 	student_id bigint not null,
@@ -32,7 +40,7 @@ insert into faculties values(1,"Faculty Of Engineering","EN");
 insert into terms values(1,"Fall 2010/2011",null,null);
 insert into students values(1,"sid123","student1","StudentF","StudentL");
 insert into subjects values(1,"CS302","Software Engineering","Some Description",6);
-insert into classes values(1,1,1,1,5,4,"Some Comment");
+insert into classes values(1,1,1,1,5,4,"Some Comment","OPENED");
 
 /*
  * 
