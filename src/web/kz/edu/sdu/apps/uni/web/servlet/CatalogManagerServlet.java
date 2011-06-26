@@ -16,9 +16,7 @@ import kz.edu.sdu.apps.uni.client.dto.SubjectDTO;
 import kz.edu.sdu.apps.uni.client.dto.TermDTO;
 
 public class CatalogManagerServlet extends HttpServlet{
-
 	@EJB ICatalogManagerLocal catalogManager;
-
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -39,23 +37,17 @@ public class CatalogManagerServlet extends HttpServlet{
 			subject.setDescription("Some Description");
 			subject.setTitle("Some Title");
 
-
 			term.setName("Fall 2010/2011");
 			term.setStartDate(new Date());
 			term.setEndDate(new Date());
 
 			faculty.setFacultyCode("EN");
 			faculty.setName("Engineering");
-
 		}
 		
 		boolean result=catalogManager.createCatalog(credits, subject, faculty, term);
 
 		PrintWriter out=resp.getWriter();
 		out.print("result: "+result);
-
 	}
-
-
-
 }

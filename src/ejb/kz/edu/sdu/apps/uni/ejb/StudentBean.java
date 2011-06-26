@@ -18,7 +18,6 @@ import kz.edu.sdu.apps.uni.ejb.db.StudentEntity;
 
 @Stateless
 public class StudentBean implements IStudentBeanLocal,IStudentBeanRemote{
-
 	@PersistenceContext(unitName="UniPU")
 	EntityManager em;
 
@@ -38,8 +37,7 @@ public class StudentBean implements IStudentBeanLocal,IStudentBeanRemote{
 			.setParameter("classId", classId)
 			.setParameter("waitingStatus", ClassEnrollStatus.WAITING)
 			.setParameter("enrolledStatus", ClassEnrollStatus.ENROLLED)
-			.getSingleResult();
-				
+			.getSingleResult();				
 		
 		if(count>0L) 
 				throw new StudentAlreadyEnrolledClassException(String.format("Student(%s) has already taken Class(%s)",studentId,classId));
@@ -63,7 +61,5 @@ public class StudentBean implements IStudentBeanLocal,IStudentBeanRemote{
 			return false;
 		}
 		return true;
-	}
-	
-	
+	}		
 }

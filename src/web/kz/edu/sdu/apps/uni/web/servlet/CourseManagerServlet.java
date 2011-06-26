@@ -17,7 +17,6 @@ import kz.edu.sdu.apps.uni.client.ICourseManagerLocal;
 import kz.edu.sdu.apps.uni.client.dto.CourseDTO;
 
 public class CourseManagerServlet extends HttpServlet{
-
 	@EJB ICourseManagerLocal courseManager;
 	
 	// courses/view/{id} - return one existing course
@@ -31,8 +30,7 @@ public class CourseManagerServlet extends HttpServlet{
 			throws ServletException, IOException {
 	
 		String path=req.getRequestURI();
-		
-		
+				
 		XStream xstream=new XStream(new JsonHierarchicalStreamDriver());
 		
 		PrintWriter out=resp.getWriter();
@@ -40,23 +38,18 @@ public class CourseManagerServlet extends HttpServlet{
 		
 		xstream.alias("courses", CourseDTO[].class);
 		xstream.alias("course", CourseDTO.class);
-		out.println(xstream.toXML(courses));
-//		
+		out.println(xstream.toXML(courses));		
 		/*
 		if(path.contains("view")) {
-			
-			
-		} else {
-			// return list of courses
-			
-		}
-		
-		
-		
-		req.setAttribute("courses", courseManager.getCourses(null));
-		req.getRequestDispatcher("/courses/courseManager.jsp").forward(req, resp);*/
-	}
 
+		} else {
+			// return list of courses			
+		}
+						
+		req.setAttribute("courses", courseManager.getCourses(null));
+		req.getRequestDispatcher("/courses/courseManager.jsp").forward(req, resp);
+		*/
+	}
 	
 	// for create,update,delete operations
 	@Override
@@ -71,8 +64,7 @@ public class CourseManagerServlet extends HttpServlet{
 		CourseDTO course=new CourseDTO();
 		xstream.alias("course", CourseDTO.class);
 		xstream.fromXML(strJson, course);
-		
-		
+				
 		boolean result=courseManager.createCourse(course.getName());
 		
 		if(result) {
@@ -80,8 +72,7 @@ public class CourseManagerServlet extends HttpServlet{
 		} else {
 			out.print("{\"result\":\"failed\"}");
 		}
-		
-		
+				
 //		XStream xstream=new XStream(new JsonHierarchicalStreamDriver());
 //		
 //		PrintWriter out=resp.getWriter();
@@ -89,22 +80,13 @@ public class CourseManagerServlet extends HttpServlet{
 //		
 //		xstream.alias("courses", CourseDTO[].class);
 //		xstream.alias("course", CourseDTO.class);
-//		
-		
-		
+				
 		if(path.contains("new")) {
 			
 		} else if(path.contains("del")) {
-			// delete one
-			
+			// delete one			
 		} else if(path.contains("edit")) {
-			// edit one existing
-			
-		}
-		
-		
+			// edit one existing		
+		}			
 	}
-
-	
-	
 }

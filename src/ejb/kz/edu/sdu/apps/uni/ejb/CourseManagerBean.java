@@ -14,7 +14,6 @@ import kz.edu.sdu.apps.uni.ejb.db.CourseEntity;
 
 @Stateless
 public class CourseManagerBean implements ICourseManagerLocal,ICourseManagerRemote{
-
 	@PersistenceContext(unitName="UniPU")
 	EntityManager em;
 	
@@ -43,5 +42,4 @@ public class CourseManagerBean implements ICourseManagerLocal,ICourseManagerRemo
 		}
 		return result;
 	}
-
 }

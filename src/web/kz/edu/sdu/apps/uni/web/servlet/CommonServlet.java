@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kz.edu.sdu.apps.uni.client.ICommonBeanLocal;
 
-
 public class CommonServlet extends HttpServlet{
-
 	@EJB ICommonBeanLocal commonBean;
 	
 	@Override
@@ -22,7 +20,4 @@ public class CommonServlet extends HttpServlet{
 		PrintWriter out=resp.getWriter();
 		out.print(commonBean.test());
 	}
-
-	
-	
 }

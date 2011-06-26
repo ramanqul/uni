@@ -15,7 +15,6 @@ import kz.edu.sdu.apps.uni.ejb.db.ClassEntity;
 
 @Stateless
 public class ClassEnrollBean implements IClassEnrollLocal,IClassEnrollRemote{
-
 	@PersistenceContext
 	EntityManager em;
 	
@@ -52,8 +51,5 @@ public class ClassEnrollBean implements IClassEnrollLocal,IClassEnrollRemote{
 		}
 		
 		return classDtoList;
-	}
-
-	
-	
+	}		
 }

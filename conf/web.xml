@@ -30,4 +30,14 @@
   	<url-pattern>/catalogs</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>ClassEnroll</servlet-name>
+  	<servlet-class>kz.edu.sdu.apps.uni.web.servlet.ClassEnrollServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ClassEnroll</servlet-name>
+  	<url-pattern>/class/search</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>

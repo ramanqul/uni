@@ -16,10 +16,6 @@ import kz.edu.sdu.apps.uni.ejb.db.TermEntity;
 
 @Stateless
 public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerRemote{
-
-	
-	
-	// some changes
 	@PersistenceContext(unitName="UniPU")
 	EntityManager em;
 	
@@ -36,8 +32,7 @@ public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerR
 			subject.setSubjectCode(subjectDTO.getSubjectCode());
 			subject.setTitle(subjectDTO.getTitle());
 			subject.setDescription(subjectDTO.getDescription());
-		}
-		
+		}	
 		
 		FacultyEntity faculty=null;
 		
@@ -71,5 +66,4 @@ public class CatalogManagerBean implements ICatalogManagerLocal,ICatalogManagerR
 		
 		return true;
 	}
-
 }

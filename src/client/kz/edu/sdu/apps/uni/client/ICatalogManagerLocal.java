@@ -8,7 +8,5 @@ import kz.edu.sdu.apps.uni.client.dto.TermDTO;
 
 @Local
 public interface ICatalogManagerLocal {
-
-	boolean createCatalog(Integer credits,SubjectDTO subjectDTO,FacultyDTO facultyDTO,TermDTO term);
-	
+	boolean createCatalog(Integer credits,SubjectDTO subjectDTO,FacultyDTO facultyDTO,TermDTO term);	
 }

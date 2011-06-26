@@ -9,7 +9,5 @@ import kz.edu.sdu.apps.uni.client.dto.ClassSearchFilterDTO;
 
 @Local
 public interface IClassEnrollLocal {
-
-	List<ClassDTO> search(ClassSearchFilterDTO filter,int page,int size) ;
-	
+	List<ClassDTO> search(ClassSearchFilterDTO filter,int page,int size) ;	
 }
