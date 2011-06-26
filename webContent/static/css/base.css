@@ -1,14 +1,14 @@
 body {
 	font: normal .80em 'trebuchet ms', arial, sans-serif;
-	background: #F0EFE2;
+	background: #FFFFFF;
 	color: #777;
 }
 
 input[type=submit] {
 	font: 100% arial;
 	border: 1px solid;
-	width: 77px;
-	margin: 2px 2px 2px 2px;
+	width: 99px;
+	margin: 0 0 0 12px;
 	height: 33px;
 	padding: 2px 0 3px 0;
 	cursor: pointer;
@@ -56,7 +56,7 @@ table tr th,table tr td {
 }
 
 table tr td {
-	background: #F0EFE2;
+	background-color: #F0EFE2;
 	color: #47433F;
 	border-top: 1px solid #FFF;
 }
