@@ -3,6 +3,7 @@ package kz.edu.sdu.apps.uni.ejb;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,12 +12,17 @@ import kz.edu.sdu.apps.uni.client.IClassEnrollLocal;
 import kz.edu.sdu.apps.uni.client.IClassEnrollRemote;
 import kz.edu.sdu.apps.uni.client.dto.ClassDTO;
 import kz.edu.sdu.apps.uni.client.dto.ClassSearchFilterDTO;
+import kz.edu.sdu.apps.uni.client.exceptions.ClassNotExistsException;
 import kz.edu.sdu.apps.uni.ejb.db.ClassEntity;
+import kz.edu.sdu.apps.uni.ejb.interfaces.IClassUtilLocal;
 
 @Stateless
 public class ClassEnrollBean implements IClassEnrollLocal,IClassEnrollRemote{
+	
 	@PersistenceContext
 	EntityManager em;
+	
+	@EJB IClassUtilLocal classUtil;
 	
 	@Override
 	public List<ClassDTO> search(ClassSearchFilterDTO filter,int page,int size) {
@@ -56,5 +62,11 @@ public class ClassEnrollBean implements IClassEnrollLocal,IClassEnrollRemote{
 		}
 		
 		return classDtoList;
+	}
+
+	@Override
+	public ClassDTO getClassById(long id) throws ClassNotExistsException {
+		ClassEntity foundClass=classUtil.getClassById(id);
+		return foundClass.toClassDTO();
 	}		
 }

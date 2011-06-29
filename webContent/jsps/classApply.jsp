@@ -1,60 +1,73 @@
+<%@page import="kz.edu.sdu.apps.uni.client.dto.ClassDTO"%>
+<%
+	ClassDTO foundClass = null;
+	if (request.getAttribute("foundClass") != null)
+		foundClass = (ClassDTO) request.getAttribute("foundClass");
+%>
 <html>
-	<head>
-		<title>Class Search</title>
-		<link href="http://localhost:8080/uni/static/css/base.css" type=text/css rel="stylesheet">
-	</head>
-	<body>
-		<form method="post" action="/uni/class/search">
-			<div class="row">
-				<div class="title">
-					Term:
-				</div>
-				<div class="field">
-					<select name="termId">
-						<option value="null">None</option>											
-						<% for(TermDTO term:terms) { %>
-							<option value="<%=term.getTermId() %>" <% if(selectedTermId==term.getTermId()) out.print("selected"); %> >
-								<%=term.getName() %>
-							</option>
-						<% } %>						
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="title">
-					Faculty:				
-				</div>
-				<div class="field">
-					<select name="facultyId">
-						<option value="null">None</option>						
-						<% for(FacultyDTO faculty:faculties) { %>
-							<option value="<%=faculty.getFacultyId() %>" <% if(selectedFacultyId==faculty.getFacultyId()) out.print("selected"); %>>
-								<%=faculty.getName() %>
-							</option>
-						<% } %>						
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="title">
-					Subject:				
-				</div>
-				<div class="field">
-					<select name="subjectId">
-						<option value="null">None</option>						
-						<% for(SubjectDTO subject:subjects) { %>
-							<option value="<%= subject.getSubjectId() %>" <% if(selectedSubjectId==subject.getSubjectId()) out.print("selected"); %>>
-								<%= subject.getSubjectCode()+'-'+subject.getTitle() %>
-							</option>
-						<% } %>						
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<input type="submit" value="Search" />
-			</div>
-		</form>
+<head>
+<title>Class Search</title>
+<link href="http://localhost:8080/uni/static/css/base.css" type=text/css
+	rel="stylesheet">
+</head>
+<body>
+	<% if(request.getAttribute("error")!=null)  { %>
+		<h2><%=request.getAttribute("error")%></h2>
+	<% } %>
+	<div class="row">
+		<div class="title">Subject:</div>
+		<div class="field">
+			<%=foundClass.getSubject().getSubjectCode()+'-'+foundClass.getSubject().getTitle()%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="title">Subject Description:</div>
+		<div class="field">
+			<%=foundClass.getSubject().getDescription()%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="title">Term:</div>
+		<div class="field">
+			<%=foundClass.getTerm().getName()%>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="title">Total Seats:</div>
+		<div class="field">
+			<%=foundClass.getSeatNumber()%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="title">Credits:</div>
+		<div class="field">
+			<%=foundClass.getCredits()%>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="title">Faculty:</div>
+		<div class="field">
+			<%=foundClass.getFaculty().getName()%>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="title">Comments:</div>
+		<div class="field">
+			<%=foundClass.getComments()%>
+		</div>
+	</div>
+	<form method="post" action="/uni/class/apply">
 		
-		
-	</body>
+		<input type="hidden" name="id" value="<%=foundClass.getClassId() %>">
+		<div class="row">
+			<input type="submit" value="Apply" /> 
+			<input type="submit" value="Back" />
+		</div>
+	</form>
+
+</body>
 </html>

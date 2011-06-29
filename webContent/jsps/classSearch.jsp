@@ -101,7 +101,7 @@
 					<td><%= clazz.getSeatNumber() %></td>
 					<td><%= clazz.getClassStatus() %></td>
 					<td>
-						<a href="apply">Apply</a>
+						<a href="/uni/class/apply?id=<%= clazz.getClassId()%>">Apply</a>
 					</td>
 				</tr>
 			<% } %>

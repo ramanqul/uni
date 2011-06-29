@@ -36,8 +36,12 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>ClassEnroll</servlet-name>
-  	<url-pattern>/class/search</url-pattern>
+  	<url-pattern>/class/*</url-pattern>
   </servlet-mapping>
   
+  <error-page>
+  	<exception-type>kz.edu.sdu.apps.uni.web.servlet.exceptions.PageNotFoundException</exception-type>
+  	<location>/jsps/error.jsp</location>
+  </error-page>
   
 </web-app>
